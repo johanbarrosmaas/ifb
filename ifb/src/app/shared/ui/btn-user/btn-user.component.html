@@ -1,0 +1,14 @@
+<div>
+  <ion-item *ngIf="user?.loggedIn else entrar" style="display: flex; flex-direction: row;" color="--ion-color">
+    <ion-avatar slot="start"><img src="https://ionicframework.com/docs/img/demos/avatar.svg" alt=""></ion-avatar>
+    <div style="display: flex; flex-direction: column; align-items: end;">
+      <ion-text>{{user?.name}}</ion-text>
+      <ion-button size="small" (click)="logout()" style="font-size: xx-small; height: fit-content; width: fit-content;">Sair</ion-button>
+    </div>
+  </ion-item>
+  <ng-template #entrar >
+    <ion-item style="display: flex; flex-direction: row;" color="--ion-color">    
+      <a href="/login">Entrar</a>
+    </ion-item>
+  </ng-template>
+</div>
