@@ -1,0 +1,7 @@
+{
+  "name": "ifb",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
