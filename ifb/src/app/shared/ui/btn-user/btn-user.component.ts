@@ -1,12 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
-
-type User = {
-  loggedIn: boolean;
-  name: string;
-  photo?: string;
-}
+import { BehaviorSubject, Subscription } from 'rxjs';
+import { authChanged, getUser, logout } from '../../firebase/auth';
+import { app } from '../../firebase/cfg';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'ifb-btn-user',
@@ -19,16 +17,31 @@ type User = {
   ]
 })
 export class BtnUserComponent  implements OnInit {
-  public user?: User;
+  public redirectLogin = new BehaviorSubject(true);
+  public user?: any;
+  private _subcriptions = new Subscription();
+  private _app = app;
 
-  constructor() { }
+  constructor(private r: Router) {}
 
   ngOnInit() {
-    this.user = { loggedIn: true, name: 'John Doe' };
+    this._subcriptions.add(
+      authChanged.subscribe((data) => {
+        console.log('StateChanged', data);
+        if (data == null) {
+          this.user = undefined;
+          this.redirectLogin.next(true);
+        } else {
+          this.user = getUser();
+          if (this.user?.uid) this.redirectLogin.next(false);
+        }
+      })
+    )
   }
 
-  logout() {
-    if (this.user === undefined) return;
-    this.user.loggedIn = false;
+  ngOnDestroy() {
+    this._subcriptions.unsubscribe();
   }
+
+  logout = logout;
 }

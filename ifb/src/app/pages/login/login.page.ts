@@ -3,7 +3,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { avaiableProviders, singIn } from 'src/app/shared/firebase/auth';
-import { AuthProvider } from 'firebase/auth';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-login',
@@ -15,12 +16,16 @@ import { AuthProvider } from 'firebase/auth';
 export class LoginPage implements OnInit {
   public providers = avaiableProviders();
 
-  constructor() { }
+  constructor(
+    private r: Router
+  ) { }
 
   ngOnInit() {}
 
-  login(id: string, provider: any) {
-    singIn(provider())
+  async login(id: string, provider: any) {
+    const signed = await singIn(new provider()).catch(reason => {
+      return undefined;
+    })
+    if (!!signed) this.r.navigate([signed]);
   }
-
 }
