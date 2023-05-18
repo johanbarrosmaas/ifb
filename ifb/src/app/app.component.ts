@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
 import { BtnUserComponent } from './shared/ui/btn-user/btn-user.component';
+import { FirebaseApp } from 'firebase/app';
+import { app } from './shared/firebase/cfg';
 
 @Component({
   selector: 'app-root',
@@ -10,5 +12,7 @@ import { BtnUserComponent } from './shared/ui/btn-user/btn-user.component';
   imports: [IonicModule, BtnUserComponent],
 })
 export class AppComponent {
+  private _firebaseApp: FirebaseApp = app;
+  
   constructor() {}
 }

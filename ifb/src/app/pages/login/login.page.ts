@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
+import { avaiableProviders, singIn } from 'src/app/shared/firebase/auth';
+import { AuthProvider } from 'firebase/auth';
 
 @Component({
   selector: 'app-login',
@@ -11,10 +13,14 @@ import { IonicModule } from '@ionic/angular';
   imports: [IonicModule, CommonModule, FormsModule]
 })
 export class LoginPage implements OnInit {
+  public providers = avaiableProviders();
 
   constructor() { }
 
-  ngOnInit() {
+  ngOnInit() {}
+
+  login(id: string, provider: any) {
+    singIn(provider())
   }
 
 }

@@ -9,7 +9,10 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "lint": "ng lint"
+    "lint": "ng lint",
+    "ionic:install": "npm i -g @ionic/cli",
+    "firebase:init": "npm install -g firebase-tools",
+    "install": "npm run firebase:init && npm run ionic:install"
   },
   "private": true,
   "dependencies": {
@@ -25,6 +28,7 @@
     "@capacitor/keyboard": "5.0.1",
     "@capacitor/status-bar": "5.0.1",
     "@ionic/angular": "^7.0.0",
+    "firebase": "^9.22.0",
     "ionicons": "^7.0.0",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
